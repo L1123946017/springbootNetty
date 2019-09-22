@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  * @Author Jiahui Li
@@ -27,6 +28,7 @@ public class NettyClient {
 	private ChildChannelInitializerClient childChannelInitializerClient;
 
 
+
 	public void runCient() throws InterruptedException {
 		NioEventLoopGroup group = null;
 		try {
@@ -40,9 +42,6 @@ public class NettyClient {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (group != null) {
-				group.shutdownGracefully();
-			}
 
 		}
 
@@ -52,9 +51,11 @@ public class NettyClient {
 
 	private void sendSms(Bootstrap bootstrap) throws Exception {
 		Channel channel = bootstrap.connect(this.host, this.port).channel();
+		Scanner scanner = new Scanner(System.in);
 		while (true) {
-			channel.writeAndFlush(new Date() + ": hello world!");
-			Thread.sleep(2000);
+			System.out.println("请输入内容：");
+			String next = scanner.next();
+			channel.writeAndFlush(next);
 		}
 	}
 

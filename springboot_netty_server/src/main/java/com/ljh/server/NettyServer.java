@@ -1,6 +1,7 @@
 package com.ljh.server;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +37,13 @@ public class NettyServer {
 			serverBootstrap
 					.group(boos, worker)
 					.channel(NioServerSocketChannel.class)
+					.option(ChannelOption.SO_BACKLOG, 1024)
+					.option(ChannelOption.SO_KEEPALIVE, true)
 					.childHandler(childChannelInitializer)
 					.bind(this.host, this.port);
 		} finally {
-			if (worker != null) {
-				worker.shutdownGracefully();
-			}
-			if (boos != null) {
-				boos.shutdownGracefully();
-			}
+			/*worker.shutdownGracefully();
+			boos.shutdownGracefully();*/
 		}
 	}
 }

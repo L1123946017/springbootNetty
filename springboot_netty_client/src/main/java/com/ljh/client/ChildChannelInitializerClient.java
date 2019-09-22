@@ -19,7 +19,7 @@ public class ChildChannelInitializerClient extends ChannelInitializer<Channel> {
 
 	@Override
 	protected void initChannel(Channel channel) throws Exception {
-		channel.pipeline().addLast(new StringEncoder())
-				.addLast(resultHandler);
+		channel.pipeline().addLast(new StringEncoder());
+		channel.pipeline().addLast(resultHandler);
 	}
 }
