@@ -16,8 +16,11 @@ public class ChildChannelInitializerServer extends ChannelInitializer<NioSocketC
 	@Autowired
 	private ChannelHandler channelHandler;
 
+	@Autowired
+	private ChildChannelHandler childChannelHandler;
+
 	@Override
 	protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception {
-		nioSocketChannel.pipeline().addLast(new StringDecoder()).addLast(channelHandler);
+		nioSocketChannel.pipeline().addLast(new StringDecoder()).addLast(childChannelHandler);
 	}
 }

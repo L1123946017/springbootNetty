@@ -16,10 +16,12 @@ public class ChildChannelInitializerClient extends ChannelInitializer<Channel> {
 
 	@Autowired
 	private ResultHandler resultHandler;
+	@Autowired
+	private ChildChannelHandler childChannelHandler;
 
 	@Override
 	protected void initChannel(Channel channel) throws Exception {
 		channel.pipeline().addLast(new StringEncoder());
-		channel.pipeline().addLast(resultHandler);
+		channel.pipeline().addLast(childChannelHandler);
 	}
 }
